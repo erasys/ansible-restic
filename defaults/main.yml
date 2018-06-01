@@ -5,14 +5,15 @@ restic_user: root
 restic_group: "{{ restic_user }}"
 
 restic_install_path: '/usr/local/bin'
-
+restic_use_password_file: false
+restic_password_dest: '/root/.restic'
 restic_initialize_repos: true
 
 restic_repos: []
 # restic_repos:
 # - name: s3-example
 #   url: "s3:s3.amazonaws.com/bucket_name/restic"
-#   password: "dolphins"
+#   password: 'mypassword'  ## Set path to the file if restic_use_password_file: true
 #   remote_credentials:
 #     aws_secret_key_id: "AWS_ACCESS_KEY_ID"
 #     aws_secret_access_key: "AWS_SECRET_ACCESS_KEY"

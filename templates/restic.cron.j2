@@ -4,7 +4,11 @@
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:{{ restic_install_path }} 
 RESTIC_REPOSITORY={{ item.url | trim | quote }}
+{% if restic_use_password_file is sameas true %}
+RESTIC_PASSWORD_FILE={{ item.password | trim | quote }}
+{% else %}
 RESTIC_PASSWORD={{ item.password | trim | quote }}
+{% endif %}
 {% if item.remote_credentials is defined %}
 {% for k,v in item.remote_credentials.items() %}
 {{ k | upper }}={{ v | trim | quote }}

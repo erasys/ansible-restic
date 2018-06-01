@@ -26,6 +26,8 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `restic_user` | "root" | system user to run restic |
 | `restic_group` | "root" | system group to run restic |
 | `restic_install_path` | "/usr/local/bin" | directory where restic binary will be installed |
+| `restic_use_password_file` | "false" | defines if restic will use password file intead of environment variable |
+| `restic_password_dest` | "/root/.restic" | directory where restic password file will be created |
 | `restic_repos` | [] | restic repositories and cron jobs configuration. More in [defaults/main.yml](defaults/main.yml) |
 
 ## Security

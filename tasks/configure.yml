@@ -8,11 +8,37 @@
   with_items: '{{ restic_repos }}'
   register: _cronfiles
 
+- name: Ensure restic password directory exist
+  file:
+    state: 'directory'
+    path: '{{ restic_password_dest }}'
+  when: restic_use_password_file
+
+- name: Deploy restic password file
+  lineinfile:
+    path: "{{ restic_password_dest }}/{{item.name}}"
+    mode: '0440'
+    owner: "{{ restic_user }}"
+    group: "{{ restic_group }}"
+    state: present
+    create: "yes"
+    line: "{{ restic_password }}"
+  no_log: true
+  with_items: "{{ restic_repos }}"
+  when: restic_use_password_file
+
+- name: Load vars from /etc/environment
+  shell: source /etc/environment
+  args:
+    executable: /bin/bash
+  when:
+    - _cronfiles is changed
+    - restic_initialize_repos
+
 - name: Initialize restic repositories
   command: "{{ restic_install_path }}/restic -r {{ item.url }} init"
   environment:
-    RESTIC_PASSWORD: "{{ item.password }}"
-  no_log: true
+    "{{ (restic_use_password_file) | ternary('RESTIC_PASSWORD_FILE','RESTIC_PASSWORD')}}: {{ item.password }}"
   ignore_errors: true
   with_items: "{{ restic_repos }}"
   when:
