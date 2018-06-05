@@ -37,9 +37,8 @@
 
 - name: Initialize restic repositories
   command: "{{ restic_install_path }}/restic -r {{ item.url }} init"
-  environment:
-    "{{ (restic_use_password_file) | ternary('RESTIC_PASSWORD_FILE:','RESTIC_PASSWORD:')}} {{ item.password }}"
   ignore_errors: true
+  no_log: true
   with_items: "{{ restic_repos }}"
   when:
     - _cronfiles is changed
