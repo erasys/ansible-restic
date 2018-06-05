@@ -13,7 +13,7 @@ restic_repos: []
 # restic_repos:
 # - name: s3-example
 #   url: "s3:s3.amazonaws.com/bucket_name/restic"
-#   password: 'mypassword'  ## Set path to the file if restic_use_password_file: true
+#   password: 'mypassword'
 #   remote_credentials:
 #     aws_secret_key_id: "AWS_ACCESS_KEY_ID"
 #     aws_secret_access_key: "AWS_SECRET_ACCESS_KEY"
